@@ -11,6 +11,9 @@ import com.proyecto.turnos.dto.TurnoUpdateDTO;
 import com.proyecto.turnos.model.Turno;
 import com.proyecto.turnos.repository.IPacientesAPI;
 import com.proyecto.turnos.repository.ITurnoRepository;
+
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import jakarta.persistence.EntityNotFoundException;
 
 /**
@@ -49,11 +52,22 @@ public class TurnoService implements ITurnoService{
     /**
      * Guarda un nuevo turno asociado a un paciente existente.
      *
-     * <p>Este método consume el microservicio de pacientes a través del cliente Feign
+     * <p>Este método consume el microservicio de pacientes mediante el cliente Feign
      * {@link IPacientesAPI} para obtener los datos del paciente correspondiente al
      * número de documento recibido. Si el paciente existe, se construye un objeto
      * {@link Turno} con la información del tratamiento, fecha y nombre del paciente,
      * y se persiste en la base de datos local.</p>
+     *
+     * <p>Las anotaciones {@link CircuitBreaker} y {@link Retry} proporcionan resiliencia
+     * ante fallos en la comunicación con el microservicio de pacientes:</p>
+     *
+     * <ul>
+     *   <li>{@link Retry} reintenta automáticamente la operación un número definido de veces
+     *   cuando se produce un fallo transitorio, antes de considerar la llamada fallida.</li>
+     *   <li>{@link CircuitBreaker} abre el circuito si se detectan errores continuos,
+     *   redirigiendo la ejecución al método de respaldo {@code fallbackPacientes} para
+     *   evitar sobrecargar el servicio remoto.</li>
+     * </ul>
      *
      * <p>Si el paciente no existe, se lanza una excepción {@link EntityNotFoundException}
      * indicando que no se encontró un registro asociado.</p>
@@ -62,8 +76,12 @@ public class TurnoService implements ITurnoService{
      * @throws EntityNotFoundException si no se encuentra el paciente con el documento indicado.
      * @see IPacientesAPI
      * @see Turno
+     * @see CircuitBreaker
+     * @see Retry
      */
-    @Override
+        @Override
+    @CircuitBreaker(name = "pacientes", fallbackMethod = "fallbackPacientes")
+    @Retry(name = "pacientes")
     public void saveTurno(TurnoSaveDTO turnDTO) {
         // Consumir el microservicio paciente
         Optional.ofNullable(pacienteAPI.getPacienteByDocumento(turnDTO.getNumDocumento()))
@@ -149,6 +167,30 @@ public class TurnoService implements ITurnoService{
             turnoRepo.save(actual);  
         },
         () -> {throw new EntityNotFoundException("No se encontró el turno con Id " + id); });
+    }
+
+
+    /**
+     * Método de respaldo (fallback) invocado automáticamente por Resilience4j
+     * cuando la comunicación con el microservicio de pacientes falla
+     * o el circuito se encuentra abierto.
+     *
+     * <p>Su propósito es manejar de forma controlada la interrupción
+     * del servicio externo, evitando que el flujo principal del sistema
+     * colapse o devuelva errores inesperados.</p>
+     *
+     * <p>En este caso, lanza una excepción {@link IllegalStateException}
+     * con un mensaje descriptivo que será gestionado por el manejador global
+     * de excepciones para devolver una respuesta HTTP 503 (Servicio no disponible).</p>
+     *
+     * @param turnoDTO objeto con la información del turno que se intentaba registrar.
+     * @param t excepción original que causó la activación del método fallback.
+     * @throws IllegalStateException si el servicio de pacientes no está disponible.
+     */
+    public void fallbackPacientes (TurnoSaveDTO turnoDTO, Throwable t){
+         throw new IllegalStateException(
+            "No fue posible registrar el turno porque el servicio de pacientes no está disponible. " +
+            "Documento afectado: " + turnoDTO.getNumDocumento(), t);
     }
 
 

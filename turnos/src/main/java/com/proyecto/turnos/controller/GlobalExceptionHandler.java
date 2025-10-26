@@ -98,4 +98,22 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
+
+    /**
+     * Maneja excepciones lanzadas cuando un servicio dependiente no está disponible,
+     * por ejemplo, cuando falla una llamada a otro microservicio y entra en acción
+     * el Circuit Breaker de Resilience4j.
+     *
+     * <p>Devuelve un mensaje con código HTTP 503 (Service Unavailable)
+     * indicando que la operación no pudo completarse temporalmente.</p>
+     *
+     * @param ex excepción lanzada por el método fallback.
+     * @return un {@link ResponseEntity} con código 503 y un mensaje informativo.
+     */
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<String> handleServiceUnavailable(IllegalStateException ex) {
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                .body("Servicio no disponible: " + ex.getMessage());
+    }
+
 }
