@@ -61,13 +61,14 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Devtools -->
+        <!-- Quitar temporalmente para pruebas con varias instancias -->
+        <!--
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+        -->
 
         <!-- Actuator -->
         <dependency>
@@ -80,6 +81,12 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
+
+        <!-- Load Balancer -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-loadbalancer</artifactId>
+		</dependency>
 
         <!-- Tests -->
         <dependency>

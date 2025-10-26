@@ -2,6 +2,7 @@ package com.proyecto.pacientes.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,7 +41,19 @@ public class PacienteController {
     @Autowired
     private IPacienteService pacienteServ;
 
+    /**
+     * Puerto actual en el que se está ejecutando la instancia del servicio.
+     *
+     * <p>Este valor se inyecta desde la propiedad {@code server.port} definida
+     * en el archivo de configuración de la aplicación. Se utiliza, por ejemplo,
+     * para mostrar en consola o en las respuestas HTTP el número de puerto
+     * y así evidenciar qué instancia del microservicio está atendiendo la solicitud,
+     * especialmente útil en entornos con balanceo de carga.</p>
+     */
+    @Value("${server.port}")
+    private int serverPort;
 
+    
     /**
      * Crea un nuevo registro de paciente.
      *
@@ -111,6 +124,7 @@ public class PacienteController {
      */
     @GetMapping("/traer/documento/{numDocumento}")
     public ResponseEntity<?> findPaciente(@PathVariable String numDocumento){
+        System.out.println("--------- Estoy corriendo en el puerto "+ serverPort + " ---------");
         return pacienteServ.findPacienteByDoc(numDocumento)
             .<ResponseEntity<?>>map(paciente -> ResponseEntity.ok().body(paciente))
             .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)

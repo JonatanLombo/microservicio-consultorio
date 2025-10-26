@@ -128,19 +128,20 @@ public class PacienteService implements IPacienteService {
                 Optional.ofNullable(paciDTO.getNombre())
                     .filter(nombre -> !nombre.isBlank())
                     .ifPresent(actual::setNombre);
-                
+
                 Optional.ofNullable(paciDTO.getApellido())
                     .filter(apellido -> !apellido.isBlank())
-                    .ifPresent(actual::setApellido);                       
-                
+                    .ifPresent(actual::setApellido);
+
                 Optional.ofNullable(paciDTO.getTelefono())
                     .filter(telefono -> !telefono.isBlank())
-                    .ifPresent(actual::setTelefono);  
-                
-                return actual;    
+                    .ifPresent(actual::setTelefono);
+
+                return actual;
             })
             .ifPresent(pacienteRepo::save);
     }
+
 
 
 
