@@ -30,6 +30,7 @@ Permite registrar pacientes, administrar sus turnos y consultar información mé
 El sistema está compuesto por múltiples microservicios registrados en **Eureka Server**, comunicados mediante **Feign Client** y gestionados por un **API Gateway**.  
 El **Config Server** centraliza las configuraciones de todos los servicios.
 
+```bash
 
                    ┌──────────────────────┐
                    │   Config Server      │
@@ -51,6 +52,7 @@ El **Config Server** centraliza las configuraciones de todos los servicios.
        │ (Feign Client)      │
        └─────────────────────┘
 
+```
 ----
 
 Cada servicio expone su propio conjunto de endpoints REST y se comunica mediante Feign Client, utilizando el número de documento del paciente como identificador compartido.
