@@ -83,7 +83,6 @@ public class PacienteController {
     @GetMapping("/traer")
     public ResponseEntity<?> traerPacientes(){
         List<Paciente> pacientes = pacienteServ.getPacientes();
-
         if(pacientes.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body("No se encontraron registros");
@@ -119,7 +118,7 @@ public class PacienteController {
      * 
      * <p>Si el paciente no existe, se devuelve un código {@code 404 NOT_FOUND}.</p>
      *
-     * @param nomDocumento número de documento del paciente a buscar.
+     * @param numDocumento número de documento del paciente a buscar.
      * @return {@link ResponseEntity} con el paciente encontrado o un mensaje de error.
      */
     @GetMapping("/traer/documento/{numDocumento}")
@@ -128,7 +127,7 @@ public class PacienteController {
         return pacienteServ.findPacienteByDoc(numDocumento)
             .<ResponseEntity<?>>map(paciente -> ResponseEntity.ok().body(paciente))
             .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body("No se encontró el paciente con Id " + numDocumento));
+                .body("No se encontró el paciente con documento " + numDocumento));
     }
 
 

@@ -112,34 +112,38 @@ public class PacienteService implements IPacienteService {
 
 
     /**
-    * Actualiza parcialmente los datos de un paciente existente aplicando un enfoque funcional.
-    *
-    * <p>Solo se actualizan los campos no nulos y no vacíos del DTO. Si el paciente no existe,
-    * no se realiza ninguna acción.</p>
-    *
-    * @param id  identificador del paciente a actualizar.
-    * @param dto objeto {@link PacienteUpdateDTO} con los campos a modificar.
-    */
+     * Actualiza parcialmente los datos de un paciente existente aplicando un enfoque funcional.
+     *
+     * <p>Solo se actualizan los campos no nulos y no vacíos del objeto {@link PacienteUpdateDTO}.
+     * Si un campo del DTO es {@code null} o está vacío, el valor correspondiente en la entidad
+     * no se modifica.</p>
+     *
+     * <p>Si el id proporcionado no corresponde a ningún paciente registrado,
+     * se lanza una {@link NoSuchElementException}.</p>
+     *
+     * @param id  identificador del paciente a actualizar; no debe ser {@code null}.
+     * @param paciDTO objeto {@link PacienteUpdateDTO} con los campos a modificar.
+     * @throws NoSuchElementException si no se encuentra ningún paciente con el id especificado.
+     */
     @Override
     public void editPaciente(Long id, PacienteUpdateDTO paciDTO) {
-        Optional.ofNullable(id)
-            .flatMap(pacienteRepo::findById)
-            .map(actual -> {
+        Paciente paciente = Optional.ofNullable(id)
+                .flatMap(pacienteRepo::findById)
+                .orElseThrow(() -> new NoSuchElementException("No se encontró el paciente con id " + id));
+
                 Optional.ofNullable(paciDTO.getNombre())
                     .filter(nombre -> !nombre.isBlank())
-                    .ifPresent(actual::setNombre);
+                    .ifPresent(paciente::setNombre);
 
                 Optional.ofNullable(paciDTO.getApellido())
                     .filter(apellido -> !apellido.isBlank())
-                    .ifPresent(actual::setApellido);
+                    .ifPresent(paciente::setApellido);
 
                 Optional.ofNullable(paciDTO.getTelefono())
                     .filter(telefono -> !telefono.isBlank())
-                    .ifPresent(actual::setTelefono);
+                    .ifPresent(paciente::setTelefono);
 
-                return actual;
-            })
-            .ifPresent(pacienteRepo::save);
+                pacienteRepo.save(paciente);
     }
 
 
