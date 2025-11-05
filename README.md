@@ -1,27 +1,35 @@
-🩺 Microservicio de Gestión de Pacientes y Turnos Médicos
-🧠 Descripción General
+# 🩺 Microservicio de Gestión de Pacientes y Turnos Médicos
 
-Sistema distribuido para la gestión de pacientes y turnos médicos, diseñado bajo arquitectura de microservicios utilizando Spring Cloud.
-Permite registrar pacientes, administrar sus turnos y consultar información médica mediante una API REST moderna, escalable y mantenible.
+## 🧠 Descripción General
+Sistema distribuido para la **gestión de pacientes y turnos médicos**, diseñado bajo arquitectura de **microservicios** utilizando **Spring Cloud**.  
+Permite registrar pacientes, administrar sus turnos y consultar información médica mediante una **API REST** moderna, escalable y mantenible.
 
-⚙️ Tecnologías Utilizadas
-Componente	Tecnología / Versión
-Lenguaje	Java 21
-Framework principal	Spring Boot 3.4.2
-Arquitectura distribuida	Spring Cloud 2024.0.0
-Base de datos	MySQL
-ORM	JPA / Hibernate
-Pruebas unitarias e integración	JUnit 5, Mockito, MockMvc
-Cobertura de código	JaCoCo (82.2%)
-Calidad de código	SonarQube (análisis local)
-Balanceo / resiliencia	Resilience4j
-Comunicación entre servicios	OpenFeign
-Descubrimiento de servicios	Eureka Server
-Ruteo de peticiones	Spring Cloud API Gateway
-🧩 Arquitectura del Sistema
+---
 
-El sistema está compuesto por múltiples microservicios registrados en Eureka Server, comunicados a través de Feign Client y gestionados por un API Gateway.
-El Config Server centraliza las configuraciones de todos los servicios.
+## ⚙️ Tecnologías Utilizadas
+
+| Componente | Tecnología / Versión |
+|-------------|----------------------|
+| **Lenguaje** | Java 21 |
+| **Framework principal** | Spring Boot 3.4.2 |
+| **Arquitectura distribuida** | Spring Cloud 2024.0.0 |
+| **Base de datos** | MySQL |
+| **ORM** | JPA / Hibernate |
+| **Pruebas unitarias e integración** | JUnit 5, Mockito, MockMvc |
+| **Cobertura de código** | JaCoCo (82.2%) |
+| **Calidad de código** | SonarQube (análisis local) |
+| **Balanceo / resiliencia** | Resilience4j |
+| **Comunicación entre servicios** | OpenFeign |
+| **Descubrimiento de servicios** | Eureka Server |
+| **Ruteo de peticiones** | Spring Cloud API Gateway |
+
+---
+
+## 🧩 Arquitectura del Sistema
+
+El sistema está compuesto por múltiples microservicios registrados en **Eureka Server**, comunicados mediante **Feign Client** y gestionados por un **API Gateway**.  
+El **Config Server** centraliza las configuraciones de todos los servicios.
+
 
                    ┌──────────────────────┐
                    │   Config Server      │
@@ -43,11 +51,11 @@ El Config Server centraliza las configuraciones de todos los servicios.
        │ (Feign Client)      │
        └─────────────────────┘
 
+----
 
 Cada servicio expone su propio conjunto de endpoints REST y se comunica mediante Feign Client, utilizando el número de documento del paciente como identificador compartido.
-
-🧱 Estructura del Repositorio
 microservicio-consultorio/
+
 │
 ├── pacientes/                  # Microservicio de pacientes
 │   ├── src/main/java/...       # Código fuente principal
@@ -134,15 +142,5 @@ Probar los endpoints desde Postman o el API Gateway.
 ✍️ Autor
 
 Jonatan Lombo
-Desarrollador Backend Java — Spring Boot | Microservicios | Cloud | CI/CD
-📫 GitHub
+       
 
-✅ Próximas secciones (pendientes)
-
-Contenerización con Docker Compose
-
-Despliegue en Render
-
-Diagrama visual de arquitectura
-
-Badges de calidad y cobertura
