@@ -99,48 +99,41 @@ DELETE	/pacientes/eliminar/{id}	Elimina un paciente
 🧪 Pruebas y Calidad de Código
 
 Pruebas unitarias implementadas en ambos microservicios con JUnit 5, Mockito y MockMvc.
-
 Cobertura total: 82.2%, medida con JaCoCo.
-
 Análisis de calidad: ejecutado con SonarQube local para garantizar buenas prácticas, métricas de mantenibilidad y detección temprana de bugs y code smells.
 
 🚀 Ejecución del Proyecto (sin Docker)
-
 Clonar el repositorio:
 
 git clone https://github.com/JonatanLombo/microservicio-consultorio.git
 
-
 Iniciar los servicios en el siguiente orden:
 
-# 1. Config Server
+1. Config Server
 cd config-server
 mvn spring-boot:run
 
-# 2. Eureka Server
+2. Eureka Server
 cd ../eureka-server
 mvn spring-boot:run
 
-# 3. Microservicios
+3. Microservicios
 cd ../pacientes
 mvn spring-boot:run
 
 cd ../turnos
 mvn spring-boot:run
 
-# 4. API Gateway
+4. API Gateway
 cd ../api-gateway
 mvn spring-boot:run
 
 
 Acceder al panel de Eureka:
-
 http://localhost:8761
-
 Probar los endpoints desde Postman o el API Gateway.
 
 ✍️ Autor
-
 Jonatan Lombo
        
 
