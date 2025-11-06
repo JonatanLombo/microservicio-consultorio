@@ -139,7 +139,7 @@ public class TurnoService implements ITurnoService{
             .flatMap(turnoRepo::findById)            
             .ifPresentOrElse(
                 turnoRepo::delete, 
-                () -> { throw new NoSuchElementException("No se encontró el paciente con id " + id); }
+                () -> { throw new NoSuchElementException("No se encontró el turno con id " + id); }
             );
     }
 

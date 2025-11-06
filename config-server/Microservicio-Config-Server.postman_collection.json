@@ -1,0 +1,70 @@
+{
+	"info": {
+		"_postman_id": "da7c404a-748d-4f1e-991b-26a67d61992f",
+		"name": "Microservicio-Config-Server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41263915"
+	},
+	"item": [
+		{
+			"name": "pacientes-config",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/pacientes/default",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"pacientes",
+						"default"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API-Gateway-config",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api-gateway/default",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api-gateway",
+						"default"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "turnos-config",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/turnos/default",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"turnos",
+						"default"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

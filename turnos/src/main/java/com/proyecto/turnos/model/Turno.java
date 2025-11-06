@@ -10,6 +10,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -61,8 +62,10 @@ public class Turno {
      *
      * <p>Campo obligatorio que indica el tipo de atención 
      * o procedimiento que se realizará.</p>
+     * <p>No puede superar los 60 caracteres.</p>
      */
     @NotBlank(message = "Indicar el tratamiento es obligatorio")
+    @Size(max = 60, message = "El tratamiento no puede superar los 60 caracteres")
     private String tratamiento;
 
     /**
@@ -70,8 +73,10 @@ public class Turno {
      *
      * <p>Este dato no se ingresa manualmente, sino que es obtenido 
      * desde el microservicio de pacientes al momento de crear el turno.</p>
+     *  <p>No puede superar los 40 caracteres.</p>
      */
     @NotBlank(message = "El nombre es obligatorio")
+    @Size(max = 40, message = "El nombre no puede superar los 40 caracteres")
     private String nombrePaciente; 
 
 }

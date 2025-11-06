@@ -50,7 +50,7 @@ public class TurnoController {
      * {@code @Valid}. Si falta algún campo obligatorio, se captura mediante el 
      * {@link GlobalExceptionHandler} y se retorna un código {@code 400 BAD_REQUEST}.</p>
      *
-     * @param paci Objeto {@link Turno} con los datos a registrar.
+     * @param turnoDTO Objeto {@link TurnoSaveDTO} con los datos a registrar.
      * @return {@link ResponseEntity} con el resultado de la operación.
      */
     @PostMapping("/crear")
@@ -92,7 +92,7 @@ public class TurnoController {
         return turnoServ.findTurno(id)
             .<ResponseEntity<?>>map(ResponseEntity::ok)
             .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body("No se encontró el Turno con Id " + id));
+                .body("No se encontró el turno con Id " + id));
     }
 
     /**

@@ -60,20 +60,20 @@ public class Paciente {
      * Nombre del paciente.
      *
      * <p>No puede estar vacío y es requerido para el registro de la entidad.</p>
-     * <p>No puede superar los 30 caracteres.</p>
+     * <p>No puede superar los 40 caracteres.</p>
      */
     @NotBlank(message = "El nombre es obligatorio")
-    @Size(max = 40, message = "El nombre no puede superar los 30 caracteres")
+    @Size(max = 40, message = "El nombre no puede superar los 40 caracteres")
     private String nombre;
 
     /**
      * Apellido del paciente.
      *
      * <p>Campo obligatorio que complementa la identificación del paciente.</p>
-     * <p>No puede superar los 30 caracteres.</p>
+     * <p>No puede superar los 40 caracteres.</p>
      */
     @NotBlank(message = "El apellido es obligatorio")
-    @Size(max = 40, message = "El apellido no puede superar los 30 caracteres")
+    @Size(max = 40, message = "El apellido no puede superar los 40 caracteres")
     private String apellido;
     
     /**

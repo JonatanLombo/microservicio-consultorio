@@ -1,0 +1,268 @@
+{
+	"info": {
+		"_postman_id": "43ec6c71-0575-49c1-9afc-10f15b319904",
+		"name": "Microservicio-API-Gateway",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41263915"
+	},
+	"item": [
+		{
+			"name": "tunos-crear",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fecha\":\"2025-12-10\",\r\n    \"tratamiento\":\"Medicina General\",\r\n    \"numDocumento\": \"753214698\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/turnos/turnos/crear",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"turnos",
+						"turnos",
+						"crear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "turnos-buscar",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/turnos/turnos/traer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"turnos",
+						"turnos",
+						"traer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "turnos-buscar-id",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/turnos/turnos/traer/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"turnos",
+						"turnos",
+						"traer",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "turnos-eliminar",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/turnos/turnos/eliminar/16",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"turnos",
+						"turnos",
+						"eliminar",
+						"16"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "turnos-editar",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fecha\":\"2024-04-10\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/turnos/turnos/editar/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"turnos",
+						"turnos",
+						"editar",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pacientes-crear",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"numDocumento\":\"1235469874\",\r\n    \"nombre\":\"Alejandra\",\r\n    \"apellido\":\"Cordoba\",\r\n    \"fechaNac\":\"1998-09-10\",\r\n    \"telefono\":\"3214577896\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/pacientes/pacientes/crear",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pacientes",
+						"pacientes",
+						"crear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pacientes-buscar",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/pacientes/pacientes/traer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pacientes",
+						"pacientes",
+						"traer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pacientes-buscar-id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/pacientes/pacientes/traer/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pacientes",
+						"pacientes",
+						"traer",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pacientes-eliminar",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/pacientes/pacientes/eliminar/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pacientes",
+						"pacientes",
+						"eliminar",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pacientes-actualizar",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\":\"Sofia\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/pacientes/pacientes/editar/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pacientes",
+						"pacientes",
+						"editar",
+						"8"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
