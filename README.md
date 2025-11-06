@@ -58,6 +58,7 @@ El **Config Server** centraliza las configuraciones de todos los servicios.
 Cada servicio expone su propio conjunto de endpoints REST y se comunica mediante Feign Client, utilizando el número de documento del paciente como identificador compartido.
 microservicio-consultorio/
 
+```bash
 │
 ├── pacientes/                  # Microservicio de pacientes
 │   ├── src/main/java/...       # Código fuente principal
@@ -74,6 +75,8 @@ microservicio-consultorio/
 ├── eureka-server/
 │
 └── config-server/
+
+```
 
 🧾 Funcionalidades Principales
 🔹 Microservicio de Pacientes
