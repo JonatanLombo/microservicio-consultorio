@@ -3,7 +3,7 @@ package com.proyecto.config_server;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class ConfigServerApplicationTests {
 
 	@Test

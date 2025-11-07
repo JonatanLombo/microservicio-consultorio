@@ -1,0 +1,122 @@
+
+services:
+
+  eureka:
+    build: ./eureka
+    mem_limit: 512m
+    ports:
+      - "8761:8761"    
+    networks:
+      - microservicio-consultorio-network  
+
+  config-server:
+    build: ./config-server
+    mem_limit: 512m
+    ports:
+      - "8081:8081"
+    depends_on:
+      eureka:
+        condition: service_started     
+    networks:
+      - microservicio-consultorio-network   
+
+  servicio_paciente:
+    image: mysql:8.0
+    container_name: servicio_paciente
+    env_file:
+      - ./pacientes/.env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: servicio_paciente
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3307:3306"
+    volumes:
+      - pacientes_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5  
+    networks:
+      - microservicio-consultorio-network        
+
+  pacientes:
+    build: ./pacientes
+    mem_limit: 512m
+    ports:
+      - "9001:9001"
+    env_file:
+      - ./pacientes/.env  
+    depends_on:
+      servicio_paciente:
+        condition: service_healthy
+      eureka:
+        condition: service_started  
+      config-server:
+        condition: service_started    
+
+    networks:
+      - microservicio-consultorio-network 
+
+  servicio_turnos:
+    image: mysql:8.0
+    container_name: servicio_turnos
+    env_file:
+      - ./turnos/.env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: servicio_turnos
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3308:3306"
+    volumes:
+      - turnos_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5   
+    networks:
+      - microservicio-consultorio-network      
+
+  turnos:
+    build: turnos
+    mem_limit: 512m
+    ports:
+      - "9002:9002"
+    env_file:
+      - ./turnos/.env   
+    depends_on:
+      servicio_turnos:
+        condition: service_healthy
+      eureka:
+        condition: service_started
+      config-server:
+        condition: service_started       
+
+    networks:
+      - microservicio-consultorio-network 
+
+  api-gateway:
+    build: ./api-gateway
+    mem_limit: 512m
+    ports:
+      - "8080:8080"
+    depends_on:
+      eureka:
+        condition: service_started
+      config-server:
+        condition: service_started    
+    networks:
+      - microservicio-consultorio-network   
+     
+networks:
+  microservicio-consultorio-network:
+
+volumes:
+  pacientes_data:
+  turnos_data:            
+      

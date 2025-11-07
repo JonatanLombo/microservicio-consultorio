@@ -14,7 +14,7 @@
 
     <groupId>com.proyecto</groupId>
     <artifactId>pacientes</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>pacientes</name>
     <description>Demo project for Spring Boot</description>
 
