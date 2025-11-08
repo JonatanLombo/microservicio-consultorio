@@ -75,6 +75,7 @@ microservicio-consultorio/
 ├── eureka-server/
 │
 └── config-server/
+    └── colección_postman.json
 
 ```
 
@@ -107,36 +108,28 @@ Pruebas unitarias implementadas en ambos microservicios con JUnit 5, Mockito y M
 Cobertura total: 82.2%, medida con JaCoCo.
 Análisis de calidad: ejecutado con SonarQube local para garantizar buenas prácticas, métricas de mantenibilidad y detección temprana de bugs y code smells.
 
-🚀 Ejecución del Proyecto (sin Docker)
-Clonar el repositorio:
+🐳 Ejecución del Proyecto con Docker
 
-git clone https://github.com/JonatanLombo/microservicio-consultorio.git
+Cada servicio está contenerizado de forma independiente y se comunica a través del Eureka Server, el cual actúa como punto de descubrimiento.
+En los contenedores, la referencia al servidor Eureka se hace mediante el hostname del servicio:
 
-Iniciar los servicios en el siguiente orden:
+http://eureka:8761/eureka
 
-1. Config Server
-cd config-server
-mvn spring-boot:run
+📦 Levantar todos los servicios
+Desde la raíz del proyecto:
+docker-compose up --build
 
-2. Eureka Server
-cd ../eureka-server
-mvn spring-boot:run
+Esto levantará automáticamente:
+config-server
+eureka-server
+api-gateway
+pacientes
+turnos
+mysql (Bases de datos correspondientes a Pacientes y Turnos)
 
-3. Microservicios
-cd ../pacientes
-mvn spring-boot:run
+Verificar los servicios activos:
+docker ps
 
-cd ../turnos
-mvn spring-boot:run
-
-4. API Gateway
-cd ../api-gateway
-mvn spring-boot:run
-
-
-Acceder al panel de Eureka:
-http://localhost:8761
-Probar los endpoints desde Postman o el API Gateway.
 
 ✍️ Autor
 Jonatan Lombo
